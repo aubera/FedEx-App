@@ -61,7 +61,7 @@ pipeline {
 				branch 'master'
 			}
 			steps {
-				sshagent(credentials['jadevssh'] {
+				sshagent(credentials['jadevssh']) {
 					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'	
 					sh "ssh ubuntu@54.80.125.138 'cd /home/ubuntu/app/docker && sudo docker pull hmarks/fedexday:latest'"
 				}
