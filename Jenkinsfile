@@ -73,6 +73,7 @@ pipeline {
 			}
 			steps {
 				sshagent(credentials: ['fedexssh']) {
+					sh 'sleep 120'
 					sh "ssh ubuntu@54.80.125.138 'cd /home/ubuntu/app/docker && sudo docker pull hmarks/fedexday:latest'"
 				}
 			}
@@ -87,6 +88,7 @@ pipeline {
 					sh 'ssh ubuntu@54.80.125.138 "docker kill my_fedexday && docker rm my_fedexday || echo NO"'
 					sh 'ssh ubuntu@54.80.125.138 "docker run --name my_fedexday -p 3000:3000 -p 4200:4200 -d hmarks/fedexday"'
 					sh 'ssh ubuntu@54.80.125.138 "docker cp /home/ubuntu/app/appenv/.env my_fedexday:/usr/src/app/"'
+					sh 'ssh ubuntu@54.80.125.138 "docker restart my_fedexday"'
 				}
 			}
 		}
