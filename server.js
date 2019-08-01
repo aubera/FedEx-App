@@ -36,7 +36,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 // app.use('/avatars', express.static(__dirname + '/avatars'));
 
-app.use('/homework', homeworkRoutes);
+app.use('/createhomework', homeworkRoutes);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
