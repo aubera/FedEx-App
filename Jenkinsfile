@@ -73,7 +73,7 @@ pipeline {
 			}
 			steps {
 				sshagent(credentials: ['fedexssh']) {
-					sh 'bash /tmp/provisioning/dockerize_fedex.sh'
+					sh 'bash /home/ubuntu/app/docker/dockerize_fedex.sh'
 				}
 			}
 		}
