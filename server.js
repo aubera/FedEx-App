@@ -11,7 +11,7 @@ const homeworkRoutes = require('./routes/homework');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const classRoutes = require('./routes/class');
-const homeworkRoutes = require('./routes/createhomework');
+const createhomeworkRoutes = require('./routes/createhomework');
 
 mongoose.connect(`mongodb+srv://ferrilata:${process.env.MONGO_PASS}@ferrilata-jade-reddit-lrtmg.mongodb.net/FedExDB?retryWrites=true&w=majority`, {useNewUrlParser: true})
   .then(() => {
@@ -43,7 +43,7 @@ app.use('/homework', homeworkRoutes);
 app.use('/class', classRoutes);
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
-app.use('/createhomework', homeworkRoutes);
+app.use('/createhomework', createhomeworkRoutes);
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
