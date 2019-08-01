@@ -83,7 +83,7 @@ pipeline {
 				branch 'master'
 			}
 			steps {
-				sh 'ssh ubuntu@54.80.125.138 "docker run --name my_fedexday -p 3000:3000 4200:4200 -d fedexday"'
+				sh 'ssh ubuntu@54.80.125.138 "docker run --name my_fedexday -p 3000:3000 -p 4200:4200 -d hmarks/fedexday"'
 			}
 		}
 	
