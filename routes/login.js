@@ -5,7 +5,10 @@ const router = express.Router();
 const bcrypt = require('bcryptjs');
 const dotenv = require('dotenv').config();
 
-router.post('/login', (req, res) => {
+const User = require('../models/users');
+
+router.post('/', (req, res) => {
+  console.log('itt')
   if (!req.headers['content-type'].includes('application/json')) {
     res.status(400).json({
       'message': 'Content-type is not specified.'
@@ -25,7 +28,7 @@ router.post('/login', (req, res) => {
   } else {
     User.findOne({
       username: req.body.username
-    })
+    }).select()
       .then(user => {
         bcrypt.compare(req.body.password, user.password, (err, resultOfPassCheck) => {
 
@@ -39,7 +42,10 @@ router.post('/login', (req, res) => {
           //Correct password
           if (resultOfPassCheck) {
             res.status(200).json({
-
+              '_id': user._id,
+              'username': user.username,
+              'profilePicture': user.avatarPath,
+              'role': user.role,
             });
           }
           else {
@@ -58,3 +64,5 @@ router.post('/login', (req, res) => {
       });
   }
 });
+
+module.exports = router;
