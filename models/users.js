@@ -5,7 +5,7 @@ const userSchema = mongoose.Schema({
   password: {type: String, required: true},
   role: {type: String, required: true},
   avatarPath: {type: String, required: true},
-  classCode: {type: Number, required: true}
+  classCode: {type: Number}
 });
 
 module.exports = mongoose.model('User', userSchema);
