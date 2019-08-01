@@ -10,6 +10,7 @@ const dotenv = require('dotenv').config();
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const homeworkRoutes = require('./routes/homework');
+const classRoutes = require('./routes/class');
 
 mongoose.connect(`mongodb+srv://ferrilata:${process.env.MONGO_PASS}@ferrilata-jade-reddit-lrtmg.mongodb.net/FedExDB?retryWrites=true&w=majority`, {useNewUrlParser: true})
   .then(() => {
@@ -36,7 +37,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
+app.use('/class', classRoutes);
 app.use('/homework', homeworkRoutes);
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);

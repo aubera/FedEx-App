@@ -8,7 +8,6 @@ const dotenv = require('dotenv').config();
 const User = require('../models/users');
 
 router.post('/', (req, res) => {
-  console.log('itt')
   if (!req.headers['content-type'].includes('application/json')) {
     res.status(400).json({
       'message': 'Content-type is not specified.'
