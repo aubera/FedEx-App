@@ -63,7 +63,6 @@ pipeline {
 					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'
 					sh 'scp $WORKSPACE/.env ubuntu@54.80.125.138:~/app/appenv'
 					sh 'rm ./.env'
-					sh 'rm -rf ./env'
 				}
 			}
 		}
