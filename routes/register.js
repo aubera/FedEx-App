@@ -18,7 +18,7 @@ router.post('/', (req, res) => {
     res.status(400).json({
       'message': `Missing field`
     });
-  } else if (req.body.code !== '123456789') {
+  } else if (req.body.code !== 123456789) {
     Class.find({ code: req.body.code })
       .then(cl => {
         if (cl.length !== 0) {
