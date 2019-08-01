@@ -84,7 +84,7 @@ pipeline {
 			}
 			steps {
 				sshagent(credentials: ['fedexssh']) {
-					sh 'ssh ubuntu@54.80.125.138 "docker kill my_fedexday && docker rm my_fedexday"'
+					sh 'ssh ubuntu@54.80.125.138 "docker kill my_fedexday && docker rm my_fedexday || echo NO"'
 					sh 'ssh ubuntu@54.80.125.138 "docker run --name my_fedexday -p 3000:3000 -p 4200:4200 -d hmarks/fedexday"'
 					sh 'ssh ubuntu@54.80.125.138 "docker cp /home/ubuntu/app/appenv/.env my_fedexday:/usr/src/app/"'
 				}
