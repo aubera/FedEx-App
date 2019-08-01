@@ -7,6 +7,7 @@ const homeworkSchema = mongoose.Schema({
   subject: {type: String, required: true},
   teacherName: {type: String, required: true},
   className: {type: String, required: true},
+  classCode: {type: String, required: true},
   solutions: {type: [Solution], default: []}
 });
 
