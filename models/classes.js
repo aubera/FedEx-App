@@ -3,9 +3,8 @@ const User = require('./users').schema;
 const Homework = require('./homeworks').schema;
 
 const classSchema = mongoose.Schema({
-  deadline: {type: Date, required: true},
   name: { type: String, required: true},
-  code: {type: Number, required: true},
+  code: {type: Number, required: true, default: Math.floor(1000 + Math.random() * 9000), unique: true},
   students: {type: [User], default: []},
   homeworks: {type: [Homework], default: []}
 });
