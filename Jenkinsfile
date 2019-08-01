@@ -61,6 +61,7 @@ pipeline {
 			steps {
 				sshagent(credentials: ['fedexssh']) {
 					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'
+					sh 'ssh ubuntu@54.80.125.138 "mkdir ~/ok"'
 					sh 'scp ./.env ubuntu@54.80.125.138:~/app/appenv/.env'
 					sh 'rm ./.env'
 				}
