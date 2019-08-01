@@ -7,6 +7,7 @@ const port = 3000;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
+const homeworkRoutes = require('./routes/homework');
 const loginRoutes = require('./routes/login');
 const registerRoutes = require('./routes/register');
 const classRoutes = require('./routes/class');
@@ -37,6 +38,8 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+
+app.use('/homework', homeworkRoutes);
 app.use('/class', classRoutes);
 app.use('/login', loginRoutes);
 app.use('/register', registerRoutes);
