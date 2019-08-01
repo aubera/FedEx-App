@@ -7,6 +7,8 @@ const port = 3000;
 const mongoose = require('mongoose');
 const dotenv = require('dotenv').config();
 
+const loginRoutes = require('./routes/login');
+const registerRoutes = require('./routes/register');
 const homeworkRoutes = require('./routes/homework');
 
 mongoose.connect(`mongodb+srv://ferrilata:${process.env.MONGO_PASS}@ferrilata-jade-reddit-lrtmg.mongodb.net/FedExDB?retryWrites=true&w=majority`, {useNewUrlParser: true})
@@ -34,8 +36,9 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-// app.use('/avatars', express.static(__dirname + '/avatars'));
 
+app.use('/login', loginRoutes);
+app.use('/register', registerRoutes);
 app.use('/createhomework', homeworkRoutes);
 
 app.get('/', (req, res) => res.send('Hello World!'));
