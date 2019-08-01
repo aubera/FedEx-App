@@ -60,7 +60,7 @@ pipeline {
 			}
 			steps {
 				sshagent(credentials: ['jadevssh']) {
-					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'
+					sh 'ssh -o StrictHostKeyChecking=no ubuntu@3.81.15.174 uptime'
 					sh 'scp ./.env ubuntu@54.80.125.138:~/app/appenv/.env'
 					sh 'rm ./.env'
 				}
