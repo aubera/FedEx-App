@@ -50,6 +50,17 @@ pipeline {
 			steps {
 				withAWS(credentials: 'awsebcred', region: 'us-east-1') {
 					sh 'aws s3 cp s3://fedexenv-4d60572/.env ./.env'
+				}
+			}
+		}
+
+		stage ('Copy Environmentals to EC2') {
+			when {
+				branch 'master'
+			}
+			steps {
+				sshagent(credentials['jadevshh']) {
+					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'
 					sh 'scp ./.env ubuntu@54.80.125.138:~/app/appenv/.env'
 					sh 'rm ./.env'
 				}
@@ -62,7 +73,6 @@ pipeline {
 			}
 			steps {
 				sshagent(credentials['jadevssh']) {
-					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'	
 					sh "ssh ubuntu@54.80.125.138 'cd /home/ubuntu/app/docker && sudo docker pull hmarks/fedexday:latest'"
 				}
 			}
