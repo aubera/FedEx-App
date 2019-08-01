@@ -17,7 +17,8 @@ router.get('/', (req, res) => {
       .catch(() => res.status(403).json({ message: 'Bad Request' }))
   } else if (classCode === undefined) {
     Homework.find({ _id: id }).select('-__v ')
-      .then(homework => res.status(200).json(homework))
+      .then(homework => {
+        res.status(200).json(homework)})
       .catch(err => console.log(err))
   }
 
@@ -28,13 +29,14 @@ router.post('/solution', (req, res) => {
     const content = req.body.content;
     const username = req.body.username
     const homeworkId = req.body.homeworkId
+    const userPhoto = req.body.userPhoto
     if (content !== undefined && username !== undefined && homeworkId !== undefined) {
       Homework.findOne({ _id: homeworkId })
         .then(hw => {
           if (hw) {
             let alreadySubmittedStudents = hw.solutions.map(solution => solution.username)
             if (!alreadySubmittedStudents.includes(username)) {
-              const solution = new Solution({ username: username, content: content })
+              const solution = new Solution({ username: username, avatarPath: userPhoto, content: content })
               solution.save()
                 .catch(err => console.log(err))
               hw.solutions.push(solution)
