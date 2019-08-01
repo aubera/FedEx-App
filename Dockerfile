@@ -4,4 +4,4 @@ COPY package*.json ./
 RUN npm install
 COPY . ./
 EXPOSE 3000 4200
-CMD [ "forever", "start", "server.js"  ]
+CMD [ "npm", "start" ]
