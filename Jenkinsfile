@@ -49,8 +49,7 @@ pipeline {
 			}
 			steps {
 				withAWS(credentials: 'awsebcred', region: 'us-east-1') {
-					sh 'mkdir ./env'
-					sh 'aws s3 cp s3://fedexenv-4d60572/.env ./env/.env'
+					sh 'aws s3 cp s3://fedexenv-4d60572/.env $WORKSPACE/.env'
 				}
 			}
 		}
@@ -62,7 +61,7 @@ pipeline {
 			steps {
 				sshagent(credentials: ['fedexssh']) {
 					sh 'ssh -o StrictHostKeyChecking=no ubuntu@54.80.125.138 uptime'
-					sh 'scp -r $WORKSPACE/env/ ubuntu@54.80.125.138:~/app/appenv'
+					sh 'scp $WORKSPACE/.env ubuntu@54.80.125.138:~/app/appenv'
 					sh 'rm ./.env'
 				}
 			}
