@@ -47,4 +47,22 @@ router.get('/', (req, res) => {
   }
 });
 
+router.get('/:clsassId', (req, res) => {
+  if (req.headers['content-type'] && req.headers['content-type'].includes('application/json')) {
+    Class.findOne({_code: req.params.classId})
+      .then(classes => {
+        res.status(200).json({number: classes.students.length});
+      })
+      .catch(error => {
+        res.status(500).json({
+          message: 'Something went wrong, please try again later.'
+        });
+      });
+  } else {
+    res.status(415).json({
+      message: 'Bad request header settings.'
+    });
+  }
+});
+
 module.exports = router;
