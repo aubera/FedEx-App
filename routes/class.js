@@ -8,9 +8,9 @@ const Class = require('../models/classes');
 router.post('/', (req, res) => {
   if (req.headers['content-type'] && req.headers['content-type'].includes('application/json')) {
     const className = req.body.className;
-    
+
     if (className !== undefined ) {
-      
+
       const newClass = new Class({ name:className });
       newClass.save()
         .then(result => res.status(200).json({
@@ -50,7 +50,7 @@ router.get('/', (req, res) => {
 
 router.get('/:clsassId', (req, res) => {
   if (req.headers['content-type'] && req.headers['content-type'].includes('application/json')) {
-    Class.findOne({_code: req.params.classId})
+    Class.findOne({code: Number(req.params.clsassId)})
       .then(classes => {
         res.status(200).json({number: classes.students.length});
       })
