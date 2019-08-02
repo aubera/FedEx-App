@@ -45,6 +45,7 @@ router.post('/', (req, res) => {
               'username': user.username,
               'avatarPath': user.avatarPath,
               'role': user.role,
+              'classCode': user.classCode
             });
           }
           else {
