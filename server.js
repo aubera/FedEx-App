@@ -39,6 +39,7 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
+app.use('/images', express.static(__dirname + '/images'));
 
 app.use('/homework', homeworkRoutes);
 app.use('/class', classRoutes);

@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const multer = require('multer');
-const tokenCheckMW = require('../service/token-validation');
 const fs = require('fs');
 
-const User = require('../models/user');
+const User = require('../models/users');
 
 const MIME_TYPE_MAP = {
   'image/png': 'png',
@@ -28,7 +27,7 @@ const storage = multer.diskStorage({
   }
 });
 
-router.put('/picture/:username?', tokenCheckMW.accessTokenCheck, multer({storage: storage}).single('image'),(req, res) => {
+router.put('/picture/:username?', multer({storage: storage}).single('image'),(req, res) => {
   const username = req.params.username;
   const url = req.protocol + '://' + req.get('host');
   const imagePath = url + '/images/' + req.file.filename;
