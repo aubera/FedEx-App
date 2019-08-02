@@ -59,13 +59,47 @@ router.post('/solution', (req, res) => {
   }
 });
 
-router.patch('/:solutionId', (req, res) => {
+router.patch('/approve/:solutionId', (req, res) => {
   console.log('hello')
   if (req.headers['content-type'].includes('application/json')) {
     const solutionId = req.params.solutionId
     if (solutionId !== undefined) {
-      Solution.findOneAndUpdate({ _id: solutionId }, {approved: true})
-        .then(() => res.status(200).json({message: 'approved'})
+      Homework.findOne({ 'solutions._id': solutionId })
+        .then((data) => {
+          data.solutions.forEach(solution => {
+            if (solution._id == solutionId) {
+              solution.approved = 'true'
+            }
+          })
+          data.save()
+          console.log(data)
+          res.status(200).json({message: 'approved'})
+        }
+        )
+    } else {
+      res.status(400).json({
+        message: 'Content-type is not specified.'
+      });
+    }
+  }
+});
+
+router.patch('/decline/:solutionId', (req, res) => {
+  console.log('hello')
+  if (req.headers['content-type'].includes('application/json')) {
+    const solutionId = req.params.solutionId
+    if (solutionId !== undefined) {
+      Homework.findOne({ 'solutions._id': solutionId })
+        .then((data) => {
+          data.solutions.forEach(solution => {
+            if (solution._id == solutionId) {
+              solution.approved = 'false'
+            }
+          })
+          data.save()
+          console.log(data)
+          res.status(200).json({message: 'approved'})
+        }
         )
     } else {
       res.status(400).json({

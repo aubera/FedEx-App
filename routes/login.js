@@ -43,7 +43,7 @@ router.post('/', (req, res) => {
             res.status(200).json({
               '_id': user._id,
               'username': user.username,
-              'profilePicture': user.avatarPath,
+              'avatarPath': user.avatarPath,
               'role': user.role,
             });
           }
