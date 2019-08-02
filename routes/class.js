@@ -14,7 +14,8 @@ router.post('/', (req, res) => {
       const newClass = new Class({ name:className });
       newClass.save()
         .then(result => res.status(200).json({
-          message: 'class added'
+          message: 'class added',
+          classNumber: result.code
         }))
         .catch(err => res.send(err));
     } else {
