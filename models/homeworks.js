@@ -3,6 +3,9 @@ const Solution = require('./solutions').schema;
 
 const homeworkSchema = mongoose.Schema({
   deadline: {type: Date, required: true},
+  title: {type: String, required: true},
+  shortDesc: {type: String, required: true},
+  content: {type: String, required: true},
   created: { type: Date, required: true, default: Date.now()},
   subject: {type: String, required: true},
   teacherName: {type: String, required: true},
