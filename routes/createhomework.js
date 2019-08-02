@@ -4,10 +4,9 @@ const router = express.Router();
 const mongoose = require('mongoose');
 
 const Homework = require('../models/homeworks');
-
+const Class = require('../models/classes')
 
 router.post('/', (req, res) => {
-  console.log(req.body);
   if (req.headers['content-type'] && req.headers['content-type'].includes('application/json')) {
     const teacherName = req.body.homework.teacherName;
     const title = req.body.homework.title;
@@ -20,12 +19,16 @@ router.post('/', (req, res) => {
 
     if (title !== undefined && content !== undefined ) {
       const homework = new Homework({teacherName,title,shortDesc,content,subject,classCode,className,deadline});
-      console.log(homework);
       homework.save()
-        .then(result => res.status(200).json({
-          message: 'added homework'
-        }))
-        .catch(err => res.send(err));
+      .then(result =>{
+        // console.log(homework);
+        Class.update({code: classCode}, {$push: { homeworks : homework}})
+          .then(pushResult=>{
+            res.status(200).json({message: 'homework added'});
+          })
+          .catch(err => res.send(err))
+      })
+      .catch(err => res.send(err));
     } else {
       let missingProperty = [];
       if (title === undefined) {
